@@ -1,11 +1,26 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
+import { Layout, Menu, Breadcrumb } from 'antd';
+import './basic-layout.css';
 
-export default class BasicLayout extends PureComponent {
-    render() {
-        return (
-        <div>
-            <h1>BasicLayout</h1>
-        </div>
-        )
-    }
-    }
+const { Header, Content, Footer } = Layout;
+
+
+
+const BasicLayout: React.FC =  () => {
+    return (
+        <Layout className="layout">
+            <Header>
+
+            </Header>
+            <Content>
+
+            </Content>
+            <Footer>
+
+            </Footer>
+        </Layout>
+    )
+}
+
+export default BasicLayout;
+
