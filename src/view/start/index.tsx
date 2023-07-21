@@ -1,27 +1,17 @@
 import React, { useState } from "react";
 import { Button } from "antd";
 import Avatar from "@/assets/avatar.jpg";
+import "./index.css";
 
 const Start: React.FC = () => {
   const [count, setCount] = useState(0);
   return (
-    <div>
+    <main className="start-container">
       <div>
-        <a href="https://vitejs.dev" target="_blank">
           <img src={Avatar} className="user-avatar" alt="Avatar" />
-        </a>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <Button type="primary">Button</Button>
-    </div>
+      <span className="start-words">人生如集市，众人在此相聚，却不久留；人生如客栈，路人在此歇脚，而后又走。</span>
+    </main>
   );
 };
 
