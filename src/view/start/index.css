@@ -1,3 +1,31 @@
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes moveIn {
+    0% {
+        opacity: 0;
+        transform: translateY(200px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
 
 .start-container{
     display: flex;
@@ -11,8 +39,9 @@
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background-color: #ccc;
+    background-color: #fff;
     object-fit: cover;
+    /* animation: rotate 40s linear  infinite ; */
 }
 
 .start-words {
@@ -24,4 +53,5 @@
     font-family: 'Times New Roman', Times, serif;
     width: 60%;
     text-align: center;
+    animation: moveIn 1s ease-in-out 1 ;
 }
