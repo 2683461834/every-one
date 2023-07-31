@@ -8,8 +8,9 @@ const Start: React.FC = () => {
   
   return (
     <main className="start-container">
-      <div id="avatarContainer">
       <ThreeScene />
+      <div id="avatarContainer">
+      
         <Link to="/home">
           <img src={Avatar} className="user-avatar" alt="Avatar" />
         </Link>

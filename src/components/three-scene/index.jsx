@@ -16,14 +16,16 @@ function ThreeScene() {
     // 创建相机
     const camera = new THREE.PerspectiveCamera(
       75,
-      window.innerWidth / window.innerHeight,
+      sceneRef.current.clientWidth / sceneRef.current.clientHeight,
       0.1,
       1000
     );
     const renderer = new THREE.WebGLRenderer({ antialias: true });
 
+    console.log(sceneRef.current.clientWidth);
+
     // 创建渲染器
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(sceneRef.current.clientWidth, sceneRef.current.clientHeight);
     // 设置背景颜色为白色
     renderer.setClearColor(0x000000, 0);
     sceneRef.current.appendChild(renderer.domElement);
@@ -41,8 +43,13 @@ function ThreeScene() {
         // model.rotation.set(0, Math.PI, 0);
         // model.scale.set(1, 1, 1);
 
+        // 计算场景尺寸和立方体大小的比例
+        const sceneSize = 0.8; // 相对于窗口大小的比例，可根据需要调整
+        const cubeSize = sceneSize / 10; // 立方体大小的比例，可根据需要调整
+        model.scale.set(2, 2, 2);
+
         // 将模型添加到场景中
-        scene.add(gltf.scene);
+        scene.add(model);
 
         animate();
       },
@@ -62,26 +69,23 @@ function ThreeScene() {
     let textMesh;
     let textGeo;
     const textMaterial = new THREE.MeshBasicMaterial({ color: 0xe5d371 });
-    textLoader.load(
-      "../public/fonts/STKaiti_Regular2.json",
-      (respones) => {
-        textGeo = new TextGeometry("杨慧", {
-          font: respones,
-          size: 0.5,
-          height: 0.1,
-          curveSegments: 12,
-          align: 'center', // 设置水平居中
-          // bevelSize: 8,
-          bevelEnabled: false,
-        });
-        textGeo.computeBoundingBox();
-        const centerOffset =
-          -0.5 * (textGeo.boundingBox.max.x - textGeo.boundingBox.min.x);
-        textMesh = new THREE.Mesh(textGeo, textMaterial);
-        textMesh.position.set(-0.7, 1, 0); // 设置文字位置，这里将文字放在立方体上方
-        scene.add(textMesh); // 将文字添加到场景中
-      }
-    );
+    textLoader.load("../public/fonts/STKaiti_Regular.json", (respones) => {
+      textGeo = new TextGeometry("", {
+        font: respones,
+        size: 0.5,
+        height: 0.1,
+        curveSegments: 12,
+        align: "center", // 设置水平居中
+        // bevelSize: 8,
+        bevelEnabled: false,
+      });
+      textGeo.computeBoundingBox();
+      const centerOffset =
+        -0.5 * (textGeo.boundingBox.max.x - textGeo.boundingBox.min.x);
+      textMesh = new THREE.Mesh(textGeo, textMaterial);
+      textMesh.position.set(-0.7, 1, 0); // 设置文字位置，这里将文字放在立方体上方
+      // scene.add(textMesh); // 将文字添加到场景中
+    });
 
     // 添加鼠标按下事件处理函数
     function onMouseDown(event) {
@@ -103,10 +107,17 @@ function ThreeScene() {
     }
 
     // 添加鼠标松开事件处理函数
-    function onMouseUp() {
-      isDragging = false;
-    }
+    // function onMouseUp() {
+    //   isDragging = false;
+    // }
 
+    // function onWindowResize() {
+    //   camera.aspect = sceneRef.current.clientWidth / sceneRef.current.clientHeight;
+    //   camera.updateProjectionMatrix();
+    //   renderer.setSize(sceneRef.current.clientWidth, sceneRef.current.clientHeight);
+    // }
+
+    // window.addEventListener("resize", onWindowResize, false);
     document.addEventListener("mousedown", onMouseDown, false);
     document.addEventListener("mousemove", onMouseMove, false);
     document.addEventListener("mouseup", onMouseUp, false);
@@ -118,7 +129,7 @@ function ThreeScene() {
 
       // Rotate the model
       if (!isDragging) {
-        scene.rotation.y += 0.01;
+        scene.rotation.y += 0.003;
       }
 
       renderer.render(scene, camera);
@@ -130,7 +141,7 @@ function ThreeScene() {
       sceneRef.current.removeChild(renderer.domElement);
     };
   }, []);
-  return <div ref={sceneRef} />;
+  return <div ref={sceneRef} style={{width: '160px',height: '90px'}} />;
 }
 
 export default ThreeScene;
